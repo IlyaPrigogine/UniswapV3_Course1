@@ -32,7 +32,29 @@ contract MyDefiProject {
         });
 
         amountOut = swapRouter.exactInputSingle(params);
-        return amountOut;
+    }
 
+    function swapExactOutputSingle(uint256 amountOut, uint256 amountInMaximum) external returns (uint256 amountIn) {
+        TransferHelper.safeTransferFrom(DAI, msg.sender, address (this), amountInMaximum);
+        TransferHelper.safeApprove(DAI, address(swapRouter), amountInMaximum);
+
+        ISwapRouter.ExactOutputSingleParams memory params =
+            ISwapRouter.ExactOutputSingleParams({
+            tokenIn : DAI,
+            tokenOut: WETH9,
+            fee: poolFee,
+            recipient: msg.sender,
+            deadline: block.timestamp,
+            amountOut: amountOut,
+            amountInMaximum: amountInMaximum,
+            sqrtPriceLimitX96: 0
+        });
+
+        amountIn = swapRouter.exactOutputSingle(params);
+
+        if (amountIn < amountInMaximum) {
+            TransferHelper.safeApprove(DAI, address (swapRouter),0);
+            TransferHelper.safeTransfer(DAI, msg.sender, amountInMaximum - amountIn);
+        }
     }
 }
