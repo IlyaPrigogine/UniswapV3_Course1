@@ -4,7 +4,7 @@ import {
     dai_ropsten,
     daiAmountInMaximum,
     initialApproveAmount,
-    swapAmount,
+    daiAmountIn,
     weth_ropsten,
     wethAmountOut
 } from "../Helpers/constants";
@@ -26,7 +26,7 @@ async function main() {
         // const weth = await ethers.getContractAt<IERC20>('IERC20',weth_ropsten);
         // await weth.approve(MyDefiProject.address,parseEther(initialApproveAmount));
 
-        // await MyDefiProject.swapExactInputSingle(parseEther(swapAmount));
+        await MyDefiProject.swapExactInputSingle(parseEther(daiAmountIn));
         await MyDefiProject.swapExactOutputSingle(parseEther(wethAmountOut),parseEther(daiAmountInMaximum));
     }
 
