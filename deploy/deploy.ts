@@ -1,4 +1,5 @@
 import {DeployFunction} from 'hardhat-deploy/types';
+import {swapAddress_ropsten} from "../Helpers/constants";
 
 
 const func: DeployFunction = async function ({deployments, getNamedAccounts, network, getChainId}) {
@@ -6,7 +7,14 @@ const func: DeployFunction = async function ({deployments, getNamedAccounts, net
     const {owner} = await getNamedAccounts();
 
     console.log('chainId:', await getChainId());
+    if (network.name === 'ropsten') {
+        await deploy('MyDefiProject',{
+            from: owner,
+            args: [swapAddress_ropsten],
+            log: true,
+        })
+    }
 
 };
 export default func;
-func.tags = ['Greeter'];
+func.tags = ['MyDefiProject'];
