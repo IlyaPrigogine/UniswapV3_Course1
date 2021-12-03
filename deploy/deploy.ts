@@ -12,7 +12,13 @@ const func: DeployFunction = async function ({deployments, getNamedAccounts, net
             from: owner,
             args: [swapAddress_ropsten],
             log: true,
-        })
+        });
+
+        await deploy('MyDefiProject2',{
+            from: owner,
+            args: [swapAddress_ropsten],
+            log: true,
+        });
     }
 
 };
