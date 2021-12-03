@@ -48,7 +48,7 @@ async function main() {
         // await MyDefiProject2.swapExactInputMultihop(parseEther(daiAmountIn));
         // await MyDefiProject2.swapExactInputMultihopV2(parseEther(daiAmountIn));
 
-        // await MyDefiProject2.swapExactOutputSingle(parseEther(wethAmountOut),parseEther(daiAmountInMaximum));
+        await MyDefiProject2.swapExactOutputMultiHop(parseEther(wethAmountOut),parseEther(daiAmountInMaximum));
     }
 
 
