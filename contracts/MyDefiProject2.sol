@@ -67,9 +67,10 @@ contract MyDefiProject2 {
 
         amountIn = swapRouter.exactOutput(params);
 
-//        if (amountIn < amountInMaximum) {
-//            TransferHelper.safeApprove(DAI, address (swapRouter), 0);
+        if (amountIn < amountInMaximum) {
+            TransferHelper.safeApprove(DAI, address (swapRouter), 0);
 //            TransferHelper.safeTransferFrom(DAI, address (this), msg.sender, amountInMaximum - amountIn);
-//        }
+            TransferHelper.safeTransfer(DAI, msg.sender, amountInMaximum - amountIn);
+        }
     }
 }
