@@ -8,11 +8,11 @@ const func: DeployFunction = async function ({deployments, getNamedAccounts, net
 
     console.log('chainId:', await getChainId());
     if (network.name === 'ropsten') {
-        await deploy('MyDefiProject',{
-            from: owner,
-            args: [swapAddress_ropsten],
-            log: true,
-        });
+        // await deploy('MyDefiProject',{
+        //     from: owner,
+        //     args: [swapAddress_ropsten],
+        //     log: true,
+        // });
 
         await deploy('MyDefiProject2',{
             from: owner,
