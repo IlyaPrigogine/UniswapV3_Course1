@@ -46,7 +46,7 @@ async function main() {
         // await usdc.approve(MyDefiProject2.address,parseEther(initialApproveAmount));
 
         // await MyDefiProject2.swapExactInputMultihop(parseEther(daiAmountIn));
-        await MyDefiProject2.swapExactInputMultihopV2(parseEther(daiAmountIn));
+        // await MyDefiProject2.swapExactInputMultihopV2(parseEther(daiAmountIn));
 
         // await MyDefiProject2.swapExactOutputSingle(parseEther(wethAmountOut),parseEther(daiAmountInMaximum));
     }

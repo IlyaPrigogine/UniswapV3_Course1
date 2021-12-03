@@ -51,4 +51,25 @@ contract MyDefiProject2 {
 
         amountOut = swapRouter.exactInput(params);
     }
+
+    function swapExactOutputMultiHop(uint256 amountOut, uint256 amountInMaximum) external returns (uint256 amountIn) {
+        TransferHelper.safeTransferFrom(DAI, msg.sender, address(this), amountInMaximum);
+        TransferHelper.safeApprove(DAI, address (swapRouter), amountInMaximum);
+
+        ISwapRouter.ExactOutputParams memory params =
+            ISwapRouter.ExactOutputParams({
+                path: abi.encodePacked(WETH9, poolFee, USDC, poolFee, DAI),
+                recipient: msg.sender,
+                deadline: block.timestamp,
+                amountOut: amountOut,
+                amountInMaximum : amountInMaximum
+        });
+
+        amountIn = swapRouter.exactOutput(params);
+
+        if (amountIn < amountInMaximum) {
+            TransferHelper.safeApprove(DAI, address (swapRouter), 0);
+            TransferHelper.safeTransferFrom(DAI, address (this), msg.sender, amountInMaximum - amountIn);
+        }
+    }
 }
