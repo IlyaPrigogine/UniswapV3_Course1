@@ -35,7 +35,7 @@ async function main() {
     if (await network.name === 'ropsten') {
         const MyDefiProject2 = await ethers.getContract<MyDefiProject2>('MyDefiProject2');
         console.log(`${await MyDefiProject2.address}`);
-
+        //
         // const dai = await ethers.getContractAt<IERC20>('IERC20',dai_ropsten);
         // await dai.approve(MyDefiProject2.address,parseEther(initialApproveAmount));
         //
