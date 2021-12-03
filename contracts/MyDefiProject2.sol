@@ -19,6 +19,7 @@ contract MyDefiProject2 {
         swapRouter = swapRouter_;
     }
 
+    /* inital queue = dai -> usdc -> weth9 */
     function swapExactInputMultihop(uint256 amountIn) external returns(uint256 amountOut) {
         TransferHelper.safeTransferFrom(DAI, msg.sender, address (this), amountIn);
         TransferHelper.safeApprove(DAI, address (swapRouter), amountIn);
@@ -30,6 +31,22 @@ contract MyDefiProject2 {
             deadline: block.timestamp,
             amountIn: amountIn,
             amountOutMinimum: 0
+        });
+
+        amountOut = swapRouter.exactInput(params);
+    }
+    /*v2: dai -> weth9 -> usdc */
+    function swapExactInputMultihopV2(uint256 amountIn) external returns(uint256 amountOut) {
+        TransferHelper.safeTransferFrom(DAI, msg.sender, address (this), amountIn);
+        TransferHelper.safeApprove(DAI, address (swapRouter), amountIn);
+
+        ISwapRouter.ExactInputParams memory params =
+        ISwapRouter.ExactInputParams({
+        path: abi.encodePacked(DAI, poolFee, WETH9, poolFee, USDC),
+        recipient : msg.sender,
+        deadline: block.timestamp,
+        amountIn: amountIn,
+        amountOutMinimum: 0
         });
 
         amountOut = swapRouter.exactInput(params);
